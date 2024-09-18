@@ -1,8 +1,10 @@
-# React + Vite
+For Resident:
+login,register,to submit query use the below mentioned link
+https://main--peppy-dolphin-89bcee.netlify.app/ 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+For Admin:
+login,register,create room,allocateroom,delete room,deallocate room, view the query which is submited by resident and admin have to assign to our staffs
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+For Staff:
+login,register,able to view assigned task, and able to mark as completed
