@@ -71,7 +71,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3001/api/v1/staff/stafflogin', { email, password });
+            const response = await axios.post('https://hotelapplicationbackend.onrender.com/api/v1/staff/stafflogin', { email, password });
             const { token, staff } = response.data;
             // Save token and staff ID in local storage
             localStorage.setItem('token', token);

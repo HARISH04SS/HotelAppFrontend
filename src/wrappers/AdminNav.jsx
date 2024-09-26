@@ -31,7 +31,7 @@ const AdminNav = () => {
           </div>
         </div>
       </nav>
-      <Outlet /> {/* This will render the matching admin route */}
+      <Outlet /> 
     </div>
   );
 };
