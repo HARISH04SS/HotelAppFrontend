@@ -61,7 +61,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // For navigation after login
 import { Form, Button, Container, Alert } from 'react-bootstrap';
-const jwt = require('jsonwebtoken');
 
 const Login = () => {
     const [email, setEmail] = useState('');
