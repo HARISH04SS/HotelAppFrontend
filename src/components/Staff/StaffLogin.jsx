@@ -70,9 +70,14 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
         try {
+            console.log('Submitting login with:',{email,password});
             const response = await axios.post('https://hotelapplicationbackend.onrender.com/api/v1/staff/stafflogin', { email, password });
             const { token, staff } = response.data;
+            if (!token || !staff) {
+                throw new Error('Invalid response from server. Please try again later.');
+              }
             // Save token and staff ID in local storage
             localStorage.setItem('token', token);
             localStorage.setItem('staffId', staff._id);
