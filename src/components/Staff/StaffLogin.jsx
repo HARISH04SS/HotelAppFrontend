@@ -61,7 +61,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // For navigation after login
 import { Form, Button, Container, Alert } from 'react-bootstrap';
-import staffServices from '../../services/staffServices';
+const jwt = require('jsonwebtoken');
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -69,51 +69,38 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setError('');
-    //     try {
-    //         console.log('Submitting login with:',{email,password});
-    //         const response = await axios.post('https://hotelapplicationbackend.onrender.com/api/v1/staff/stafflogin', { email, password });
-    //         const { token, staff } = response.data;
-    //         if (!token || !staff) {
-    //             throw new Error('Invalid response from server. Please try again later.');
-    //           }
-    //         // Save token and staff ID in local storage
-    //         localStorage.setItem('token', token);
-    //         localStorage.setItem('staffId', staff._id);
-    //         // Navigate to staff dashboard with staff ID
-    //         console.log('staff ID:',localStorage.getItem('staffId'))
-    //         navigate('/staff/staffDashboard/'+localStorage.getItem('staffId'));
-    //     }
-    //     catch (error) {
-    //         if (error.response) {
-    //             // Server responded with a status other than 2xx
-    //             console.error('Server Error:', error.response.data);
-    //             setError(error.response.data.message || 'Login failed. Please check your credentials and try again.');
-    //         } else if (error.request) {
-    //             // No response was received from the server
-    //             console.error('No response from server:', error.request);
-    //             setError('No response from server. Please try again later.');
-    //         } else {
-    //             // Other errors
-    //             console.error('Error:', error.message);
-    //             setError('An unexpected error occurred. Please try again.');
-    //         }
-    //     } 
-    // };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const userData = { email, password };
-
-        staffServices.staffLogin(userData)
-            .then(response => {
-                localStorage.setItem('token', response.data.token);
-                navigate('/staff/staffDashboard');
-            })
-            .catch(error => {
-                console.error('Login failed:', error);
-            });
+        setError('');
+        try {
+            console.log('Submitting login with:',{email,password});
+            const response = await axios.post('https://hotelapplicationbackend.onrender.com/api/v1/staff/stafflogin', { email, password });
+            const { token, staff } = response.data;
+            if (!token || !staff) {
+                throw new Error('Invalid response from server. Please try again later.');
+              }
+            // Save token and staff ID in local storage
+            localStorage.setItem('token', token);
+            localStorage.setItem('staffId', staff._id);
+            // Navigate to staff dashboard with staff ID
+            console.log('staff ID:',localStorage.getItem('staffId'))
+            navigate('/staff/staffDashboard/'+localStorage.getItem('staffId'));
+        }
+        catch (error) {
+            if (error.response) {
+                // Server responded with a status other than 2xx
+                console.error('Server Error:', error.response.data);
+                setError(error.response.data.message || 'Login failed. Please check your credentials and try again.');
+            } else if (error.request) {
+                // No response was received from the server
+                console.error('No response from server:', error.request);
+                setError('No response from server. Please try again later.');
+            } else {
+                // Other errors
+                console.error('Error:', error.message);
+                setError('An unexpected error occurred. Please try again.');
+            }
+        } 
     };
 
     return (
