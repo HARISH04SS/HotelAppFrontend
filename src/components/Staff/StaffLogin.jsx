@@ -77,12 +77,24 @@ const Login = () => {
             localStorage.setItem('token', token);
             localStorage.setItem('staffId', staff._id);
             // Navigate to staff dashboard with staff ID
-            console.log(localStorage.getItem('staffId'))
+            console.log('staff ID:',localStorage.getItem('staffId'))
             navigate('/staff/staffDashboard/'+localStorage.getItem('staffId'));
-        } catch (error) {
-            console.error('Login error:', error);
-            setError('Login failed. Please check your credentials and try again.');
         }
+        catch (error) {
+            if (error.response) {
+                // Server responded with a status other than 2xx
+                console.error('Server Error:', error.response.data);
+                setError(error.response.data.message || 'Login failed. Please check your credentials and try again.');
+            } else if (error.request) {
+                // No response was received from the server
+                console.error('No response from server:', error.request);
+                setError('No response from server. Please try again later.');
+            } else {
+                // Other errors
+                console.error('Error:', error.message);
+                setError('An unexpected error occurred. Please try again.');
+            }
+        } 
     };
 
     return (
